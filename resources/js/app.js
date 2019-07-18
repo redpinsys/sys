@@ -10,6 +10,7 @@ window.flash = function (message, level = 'info') {
 };
 
 // select2 vue
+import _ from 'lodash';
 import Select2 from './components/Select2.vue';
 Vue.component('select2', Select2);
 

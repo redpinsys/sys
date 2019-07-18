@@ -57,28 +57,46 @@ class HomeController extends Controller
         $orderquantity_id = request('orderquantity_id');
         $shape_id = request('shape_id');
         $delivery_fee = request('delivery_fee');
+        $dimension = [
+            'width' => 0,
+            'height' => 0
+        ];
+        $floor_width = 0;
+        $floor_height = 0;
+        $area = 0;
+        $formula = 0;
+        $total = 0;
 
         // dd(request()->all());
         if($material_id == 5) {
+            $dimension = [
+                'width' => 282,
+                'height' => 434
+            ];
             $this->validate(request(), [
                 'width' => 'lte:282',
                 'height' => 'lte:434'
             ]);
         }else {
+            $dimension = [
+                'width' => 307,
+                'height' => 460
+            ];
             $this->validate(request(), [
                 'width' => 'lte:307',
                 'height' => 'lte:460'
             ]);
         }
 
-        $floor_width = floor($width/ 50);
-        $floor_height = floor($height/ 50);
+        $floor_width = floor($dimension['width']/ $width);
+        $floor_height = floor($dimension['height']/ $height);
 
         $area = $floor_width * $floor_height;
 
         $orderquantity = Orderquantity::findOrFail($orderquantity_id);
         $material = Material::findOrFail($material_id);
         $shape = Shape::findOrFail($shape_id);
+        // dd($floor_width, $floor_height, $area);
 
         $formula = round($orderquantity->qty/ $area) + 3;
 

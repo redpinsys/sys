@@ -31,7 +31,6 @@ if(document.querySelector('#clientLabelstickerController')) {
     },
     methods: {
       materialIdSelected() {
-        console.log(this.form.material_id)
         if(this.form.material_id == 5) {
           this.formsetup.max_width = 282
           this.formsetup.max_height = 434
@@ -39,6 +38,7 @@ if(document.querySelector('#clientLabelstickerController')) {
           this.formsetup.max_width = 307
           this.formsetup.max_height = 460
         }
+        this.getQuotation()
       },
       getAllMaterials() {
         axios.get('/api/materials/all').then((response) => {
@@ -55,14 +55,15 @@ if(document.querySelector('#clientLabelstickerController')) {
           this.shapes = response.data
         })
       },
-      getQuotation() {
+      getQuotation: _.debounce(function(e) {
+        this.formErrors = {}
         axios.post('/api/labelsticker/quotation', this.form).then((response) => {
           this.form.total = response.data
         })
         .catch((error) => {
           this.formErrors = error.response.data.errors
         });
-      }
+      }, 500)
     }
   });
 
