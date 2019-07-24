@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShapesTable extends Migration
+class CreateQuantitymultipliersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateShapesTable extends Migration
      */
     public function up()
     {
-        Schema::create('shapes', function (Blueprint $table) {
+        Schema::create('quantitymultipliers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
             $table->decimal('multiplier', 5, 2)->nullable();
+            $table->integer('min');           
+            $table->integer('max');            
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateShapesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shapes');
+        Schema::dropIfExists('quantitymultipliers');
     }
 }

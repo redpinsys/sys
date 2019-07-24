@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Orderquantity;
 use App\Material;
+use App\Quantitymultiplier;
 use App\Shape;
 
 class HomeController extends Controller
@@ -98,9 +99,12 @@ class HomeController extends Controller
         $shape = Shape::findOrFail($shape_id);
         // dd($floor_width, $floor_height, $area);
 
-        $formula = round($orderquantity->qty/ $area) + 3;
+        $formula = intval(round($orderquantity->qty/ $area) + 3);
 
-        $total = ($formula * $orderquantity->multiplier * $material->multiplier * $shape->multiplier) + $delivery_fee + 15;
+        $quantitymultipler = Quantitymultiplier::where('min', '<=', $formula)->where('max', '>=', $formula)->first();
+
+        $total = ($formula * $quantitymultipler->multiplier * $material->multiplier * $shape->multiplier) + $delivery_fee + 15;
+        // dd($formula, $quantitymultipler->multiplier, $material->multiplier, $shape->multiplier, $total);
 
         return $total;
 

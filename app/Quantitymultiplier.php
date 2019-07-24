@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Shape extends Model
+class Quantitymultiplier extends Model
 {
     protected $fillable = [
-        'name', 'multiplier'
+        'multiplier', 'min', 'max'
     ];
 }

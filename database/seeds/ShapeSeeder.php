@@ -13,12 +13,7 @@ class ShapeSeeder extends Seeder
     public function run()
     {
         Shape::create([
-            'name' => 'Rectangle',
-            'multiplier' => 1
-        ]);
-
-        Shape::create([
-            'name' => 'Square',
+            'name' => 'Rectangle/ Square',
             'multiplier' => 1
         ]);
 

@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(MaterialSeeder::class);
         $this->call(OrderquantitySeeder::class);
+        $this->call(QuantitymultiplierSeeder::class);
         $this->call(ShapeSeeder::class);
     }
 }

@@ -19,7 +19,7 @@
             <div class="card-body">
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">
-                  Step 1 - Materials
+                  Materials
                   <label for="required" class="control-label" style="color:red;">*</label>
                 </label>
                 <select2 v-model="form.material_id" class="form-control" @input="materialIdSelected()">
@@ -36,7 +36,7 @@
               <hr>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">
-                  Step 2 - Shape
+                  Shape
                   <label for="required" class="control-label" style="color:red;">*</label>
                 </label>
                 <select2 v-model="form.shape_id" class="form-control" @input="getQuotation()">
@@ -53,7 +53,7 @@
               <hr>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">
-                  Step 2 - Size
+                  Size
                 </label>
                 <label for="required" class="control-label" style="color:red;">*</label>
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -82,7 +82,7 @@
               <hr>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">
-                  Step 3 - Quantities
+                  Quantities
                   <label for="required" class="control-label" style="color:red;">*</label>
                 </label>
                 <select2 v-model="form.orderquantity_id" class="form-control" @input="getQuotation()">
@@ -99,7 +99,7 @@
               <hr>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">
-                  Step 4 - Delivery
+                  Delivery
                 </label>
                 <select2 v-model="form.delivery_fee" class="form-control" @input="getQuotation()">
                     <option value="">None</option>
