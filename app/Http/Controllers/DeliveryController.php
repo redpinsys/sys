@@ -22,7 +22,6 @@ class DeliveryController extends Controller
         $deliveries = DB::table('productdeliveries')
             ->leftJoin('products', 'products.id', '=', 'productdeliveries.product_id')
             ->leftJoin('deliveries', 'deliveries.id', '=', 'productdeliveries.delivery_id')
-            ->orderBy('deliveries.name')
             ->where('products.id', $product_id)
             ->select(
                 'deliveries.id', 'deliveries.name', 'productdeliveries.multiplier'

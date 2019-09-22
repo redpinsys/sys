@@ -54,7 +54,7 @@ class DeliverySeeder extends Seeder
 
 
         $delivery = Delivery::create([
-            'name' => 'West Malaysia'
+            'name' => 'West Malaysia (Free)'
         ]);
 
         // label sticker
