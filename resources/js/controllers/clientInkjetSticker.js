@@ -26,7 +26,8 @@ if(document.querySelector('#clientInkjetstickerController')) {
           finishings: [],
           frames: [],
           formErrors: {},
-          is_finishing_enable: true
+          is_finishing_enable: true,
+          deliveries: []
         }
       },
       mounted() {
