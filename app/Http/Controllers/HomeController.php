@@ -98,10 +98,20 @@ class HomeController extends Controller
             ]);
         }
 
-        $floor_width = floor($dimension['width']/ $width);
-        $floor_height = floor($dimension['height']/ $height);
+        $floor_width1 = floor($dimension['width']/ $width);
+        $floor_height1 = floor($dimension['height']/ $height);
 
-        $area = $floor_width * $floor_height;
+        $floor_width2 = floor($dimension['width']/ $height);
+        $floor_height2 = floor($dimension['height']/ $width);
+
+        $area1 = $floor_width1 * $floor_height1;
+        $area2 = $floor_width2 * $floor_height2;
+
+        if($area1 > $area2){
+            $area = $area1;
+        }else {
+            $area = $area2;
+        }
 
         $orderquantity = Orderquantity::findOrFail($orderquantity_id);
         $material = Productmaterial::where('material_id', $material_id)->where('product_id', $product_id)->first();
