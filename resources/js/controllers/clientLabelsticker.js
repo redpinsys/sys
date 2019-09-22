@@ -1,5 +1,3 @@
-import Axios from "axios";
-
 if(document.querySelector('#clientLabelstickerController')) {
   Vue.component('client-labelsticker', {
     template: '#client-labelsticker-template',
@@ -12,6 +10,7 @@ if(document.querySelector('#clientLabelstickerController')) {
           orderquantity_id: '',
           shape_id: '',
           delivery_fee: '',
+          delivery_id: '',
           total: 0.00
         },
         formsetup: {
@@ -21,6 +20,7 @@ if(document.querySelector('#clientLabelstickerController')) {
         materials: [],
         orderquantities: [],
         shapes: [],
+        deliveries: [],
         formErrors: {},
       }
     },
@@ -28,6 +28,7 @@ if(document.querySelector('#clientLabelstickerController')) {
       this.getAllMaterials()
       this.getAllOrderquantities()
       this.getAllShapes()
+      this.getAllDeliveries()
     },
     methods: {
       materialIdSelected() {
@@ -41,7 +42,7 @@ if(document.querySelector('#clientLabelstickerController')) {
         this.getQuotation()
       },
       getAllMaterials() {
-        axios.get('/api/materials/all').then((response) => {
+        axios.get('/api/materials/product/1').then((response) => {
           this.materials = response.data
         })
       },
@@ -51,8 +52,13 @@ if(document.querySelector('#clientLabelstickerController')) {
         })
       },
       getAllShapes() {
-        axios.get('/api/shapes/all').then((response) => {
+        axios.get('/api/shapes/product/1').then((response) => {
           this.shapes = response.data
+        })
+      },
+      getAllDeliveries() {
+        axios.get('/api/deliveries/product/1').then((response) => {
+          this.deliveries = response.data
         })
       },
       getQuotation: _.debounce(function(e) {

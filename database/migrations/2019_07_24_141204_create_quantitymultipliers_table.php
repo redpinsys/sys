@@ -16,8 +16,9 @@ class CreateQuantitymultipliersTable extends Migration
         Schema::create('quantitymultipliers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('multiplier', 5, 2)->nullable();
-            $table->integer('min');           
-            $table->integer('max');            
+            $table->integer('min');
+            $table->integer('max');
+            $table->integer('product_id');
             $table->timestamps();
         });
     }

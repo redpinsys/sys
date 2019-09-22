@@ -16,7 +16,6 @@ class CreateShapesTable extends Migration
         Schema::create('shapes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->decimal('multiplier', 5, 2)->nullable();
             $table->timestamps();
         });
     }

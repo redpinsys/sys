@@ -16,7 +16,6 @@ class CreateOrderquantitiesTable extends Migration
         Schema::create('orderquantities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->decimal('multiplier', 5, 2)->nullable();
             $table->integer('qty');
             $table->timestamps();
         });

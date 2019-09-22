@@ -16,3 +16,4 @@ Vue.component('select2', Select2);
 
 // controllers
 require('./controllers/clientLabelsticker');
+require('./controllers/clientInkjetsticker');

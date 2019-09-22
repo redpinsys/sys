@@ -3,17 +3,17 @@
 @section('content')
 
 
-    <div id="clientLabelstickerController">
-      <client-labelsticker></client-labelsticker>
+    <div id="clientInkjetstickerController">
+      <client-inkjetsticker></client-inkjetsticker>
     </div>
 
-    <template id="client-labelsticker-template">
+    <template id="client-inkjetsticker-template">
       <div>
       <div class="row justify-content-center">
         <div class="col-md-11">
           <div class="card">
             <div class="card-header bg-info">
-              Label Sticker Quotation
+              Inkjet Sticker Quotation
             </div>
 
             <div class="card-body">
@@ -39,7 +39,7 @@
                   Shape
                   <label for="required" class="control-label" style="color:red;">*</label>
                 </label>
-                <select2 v-model="form.shape_id" class="form-control" @input="getQuotation()">
+                <select2 v-model="form.shape_id" class="form-control" @input="shapeChosen()">
                     <option value="">All</option>
                     <option v-for="shape in shapes" :value="shape.id">
                       @{{shape.name}}
@@ -82,6 +82,54 @@
               <hr>
               <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label">
+                  Laminations
+                </label>
+                <select2 v-model="form.lamination_id" class="form-control" @input="getQuotation()">
+                    <option value="">All</option>
+                    <option v-for="lamination in laminations" :value="lamination.id">
+                      @{{lamination.name}}
+                    </option>
+                </select2>
+                <input type="hidden" class="form-control" :class="{ 'is-invalid' : formErrors['lamination_id'] }">
+                <span class="invalid-feedback" role="alert" v-if="formErrors['lamination_id']">
+                    <strong>@{{ formErrors['lamination_id'][0] }}</strong>
+                </span>
+              </div>
+              <hr>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12" v-if="is_finishing_enable">
+                <label class="control-label">
+                  Finishing
+                </label>
+                <select2 v-model="form.finishing_id" class="form-control" @input="getQuotation()">
+                    <option value="">All</option>
+                    <option v-for="finishing in finishings" :value="finishing.id">
+                      @{{finishing.name}}
+                    </option>
+                </select2>
+                <input type="hidden" class="form-control" :class="{ 'is-invalid' : formErrors['finishing_id'] }">
+                <span class="invalid-feedback" role="alert" v-if="formErrors['finishing_id']">
+                    <strong>@{{ formErrors['finishing_id'][0] }}</strong>
+                </span>
+              </div>
+              <hr>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">
+                  Frame
+                </label>
+                <select2 v-model="form.frame_id" class="form-control" @input="getQuotation()">
+                    <option value="">All</option>
+                    <option v-for="frame in frames" :value="frame.id">
+                      @{{frame.name}}
+                    </option>
+                </select2>
+                <input type="hidden" class="form-control" :class="{ 'is-invalid' : formErrors['frame_id'] }">
+                <span class="invalid-feedback" role="alert" v-if="formErrors['frame_id']">
+                    <strong>@{{ formErrors['frame_id'][0] }}</strong>
+                </span>
+              </div>
+              <hr>
+              <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                <label class="control-label">
                   Quantities
                   <label for="required" class="control-label" style="color:red;">*</label>
                 </label>
@@ -107,12 +155,6 @@
                     @{{delivery.name}}
                   </option>
                 </select2>
-{{--
-                <select2 v-model="form.delivery_fee" class="form-control" @input="getQuotation()">
-                    <option value="">None</option>
-                    <option value="0">JB (Free)</option>
-                    <option value="30">Singapore (+ RM 30)</option>
-                </select2> --}}
                 <input type="hidden" class="form-control" :class="{ 'is-invalid' : formErrors['delivery_fee'] }">
                 <span class="invalid-feedback" role="alert" v-if="formErrors['delivery_fee']">
                     <strong>@{{ formErrors['delivery_fee'][0] }}</strong>
@@ -169,8 +211,8 @@
                   <span class="invalid-feedback" role="alert" v-if="formErrors['attachment']">
                       <strong>@{{ formErrors['attachment'][0] }}</strong>
                   </span>
-                </div>
-            </div> --}}
+              </div> --}}
+            </div>
           </div>
         </div>
       </div>

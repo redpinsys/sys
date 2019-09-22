@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Orderquantity extends Model
+class Frame extends Model
 {
     protected $fillable = [
-        'name', 'qty'
+        'name'
     ];
 }
