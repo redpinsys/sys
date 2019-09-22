@@ -16,13 +16,13 @@ class DeliverySeeder extends Seeder
         $delivery = Delivery::create([
             'name' => 'Self Collect'
         ]);
-
+/*
         // label sticker
         Productdelivery::create([
             'product_id' => 1,
             'delivery_id' => $delivery->id,
             'multiplier' => 0
-        ]);
+        ]); */
 
         // inkjet sticker
         Productdelivery::create([
@@ -34,21 +34,34 @@ class DeliverySeeder extends Seeder
 
 
         $delivery = Delivery::create([
-            'name' => 'JB Area (free)'
+            'name' => 'JB Area'
         ]);
 
         // label sticker
+/*
         Productdelivery::create([
             'product_id' => 1,
             'delivery_id' => $delivery->id,
-            'multiplier' => 0
-        ]);
+            'multiplier' => 10
+        ]); */
 
         // inkjet sticker
         Productdelivery::create([
             'product_id' => 2,
             'delivery_id' => $delivery->id,
             'multiplier' => 15
+        ]);
+
+
+        $delivery = Delivery::create([
+            'name' => 'West Malaysia'
+        ]);
+
+        // label sticker
+        Productdelivery::create([
+            'product_id' => 1,
+            'delivery_id' => $delivery->id,
+            'multiplier' => 10
         ]);
 
 
