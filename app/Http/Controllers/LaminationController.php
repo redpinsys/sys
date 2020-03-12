@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lamination;
+use App\Productlamination;
 use DB;
 
 class LaminationController extends Controller
@@ -24,10 +25,20 @@ class LaminationController extends Controller
             ->leftJoin('laminations', 'laminations.id', '=', 'productlaminations.lamination_id')
             ->where('products.id', $product_id)
             ->select(
-                'laminations.id', 'laminations.name', 'productlaminations.multiplier'
+                'productlaminations.id', 'laminations.name', 'productlaminations.multiplier'
             )
             ->get();
 
         return $laminations;
+    }
+
+    // update product lamination by given id
+    public function updateProductLaminationByIdApi($id)
+    {
+        $model = Productlamination::findOrFail($id);
+        $multiplier = request('multiplier');
+
+        $model->multiplier = $multiplier;
+        $model->save();
     }
 }

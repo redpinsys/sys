@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Frame;
+use App\Productframe;
 use DB;
 
 class FrameController extends Controller
@@ -25,11 +26,21 @@ class FrameController extends Controller
             ->leftJoin('frames', 'frames.id', '=', 'productframes.frame_id')
             ->where('products.id', $product_id)
             ->select(
-                'frames.id', 'frames.name', 'productframes.multiplier'
+                'productframes.id', 'frames.name', 'productframes.multiplier'
             )
             ->get();
             // dd($frames);
 
         return $frames;
+    }
+
+    // update product frame by given id
+    public function updateProductFrameByIdApi($id)
+    {
+        $model = Productframe::findOrFail($id);
+        $multiplier = request('multiplier');
+
+        $model->multiplier = $multiplier;
+        $model->save();
     }
 }

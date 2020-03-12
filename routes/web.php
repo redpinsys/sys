@@ -29,16 +29,19 @@ Route::group(['prefix' => 'api'], function() {
     Route::group(['prefix' => 'laminations'], function() {
         Route::get('/all', 'LaminationController@getAllLaminationsApi');
         Route::get('/product/{product_id}', 'LaminationController@getAllLaminationsByProductIdApi');
+        Route::post('/{id}', 'LaminationController@updateProductLaminationByIdApi');
     });
 
     Route::group(['prefix' => 'finishings'], function() {
         Route::get('/all', 'FinishingController@getAllFinishingsApi');
         Route::get('/product/{product_id}', 'FinishingController@getAllFinishingsByProductIdApi');
+        Route::post('/{id}', 'FinishingController@updateProductFinishingByIdApi');
     });
 
     Route::group(['prefix' => 'frames'], function() {
         Route::get('/all', 'FrameController@getAllFramesApi');
         Route::get('/product/{product_id}', 'FrameController@getAllFramesByProductIdApi');
+        Route::post('/{id}', 'FrameController@updateProductFrameByIdApi');
     });
 
     Route::group(['prefix' => 'deliveries'], function() {
