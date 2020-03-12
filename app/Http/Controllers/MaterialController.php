@@ -23,13 +23,22 @@ class MaterialController extends Controller
         $materials = DB::table('productmaterials')
             ->leftJoin('products', 'products.id', '=', 'productmaterials.product_id')
             ->leftJoin('materials', 'materials.id', '=', 'productmaterials.material_id')
-            ->orderBy('materials.name')
             ->where('products.id', $product_id)
             ->select(
-                'materials.id', 'materials.name', 'productmaterials.multiplier'
+                'productmaterials.id', 'materials.name', 'productmaterials.multiplier'
             )
             ->get();
 
         return $materials;
+    }
+
+    // update material by given id
+    public function updateProductMaterialByIdApi($id)
+    {
+        $model = Productmaterial::findOrFail($id);
+        $multiplier = request('multiplier');
+
+        $model->multiplier = $multiplier;
+        $model->save();
     }
 }

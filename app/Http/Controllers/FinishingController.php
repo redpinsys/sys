@@ -22,7 +22,6 @@ class FinishingController extends Controller
         $finishings = DB::table('productfinishings')
             ->leftJoin('products', 'products.id', '=', 'productfinishings.product_id')
             ->leftJoin('finishings', 'finishings.id', '=', 'productfinishings.finishing_id')
-            ->orderBy('finishings.name')
             ->where('products.id', $product_id)
             ->select(
                 'finishings.id', 'finishings.name', 'productfinishings.multiplier'

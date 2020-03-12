@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Productshape;
 use App\Shape;
 use DB;
 
@@ -22,13 +23,22 @@ class ShapeController extends Controller
         $shapes = DB::table('productshapes')
             ->leftJoin('products', 'products.id', '=', 'productshapes.product_id')
             ->leftJoin('shapes', 'shapes.id', '=', 'productshapes.shape_id')
-            ->orderBy('shapes.name')
             ->where('products.id', $product_id)
             ->select(
-                'shapes.id', 'shapes.name', 'productshapes.multiplier'
+                'productshapes.id', 'shapes.name', 'productshapes.multiplier'
             )
             ->get();
 
         return $shapes;
+    }
+
+    // update product shape by given id
+    public function updateProductShapeByIdApi($id)
+    {
+        $model = Productshape::findOrFail($id);
+        $multiplier = request('multiplier');
+
+        $model->multiplier = $multiplier;
+        $model->save();
     }
 }

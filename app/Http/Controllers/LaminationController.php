@@ -22,7 +22,6 @@ class LaminationController extends Controller
         $laminations = DB::table('productlaminations')
             ->leftJoin('products', 'products.id', '=', 'productlaminations.product_id')
             ->leftJoin('laminations', 'laminations.id', '=', 'productlaminations.lamination_id')
-            ->orderBy('laminations.name')
             ->where('products.id', $product_id)
             ->select(
                 'laminations.id', 'laminations.name', 'productlaminations.multiplier'

@@ -14,6 +14,7 @@ use App\Productlamination;
 use App\Productfinishing;
 use App\Productframe;
 use App\Productdelivery;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['getLabelstickerIndex', 'getLabelstickerQuotationApi', 'getInkjetstickerIndex', 'getInkjetstickerQuotationApi']]);
+        Auth::loginUsingId(1, true);
     }
 
     /**
@@ -41,6 +43,12 @@ class HomeController extends Controller
     public function getLabelstickerIndex()
     {
         return view('client.labelsticker');
+    }
+
+    // return sticker index
+    public function getStickerIndex()
+    {
+        return view('client.sticker.label');
     }
 
     // return label sticker api()
@@ -147,11 +155,11 @@ class HomeController extends Controller
             'width' => 'required|numeric',
             'height' => 'required|numeric',
             'material_id' => 'required',
-            'orderquantity_id' => 'required',
+            // 'orderquantity_id' => 'required',
             'shape_id' => 'required',
         ], [
             'material_id.required' => 'Please select a material',
-            'orderquantity_id.required' => 'Please select the quantities',
+            // 'orderquantity_id.required' => 'Please select the quantities',
             'shape_id.required' => 'Please select the shape'
         ]);
 
@@ -159,6 +167,7 @@ class HomeController extends Controller
         $height = request('height');
         $material_id = request('material_id');
         $orderquantity_id = request('orderquantity_id');
+        $quantities = request('quantities');
         $shape_id = request('shape_id');
         $lamination_id = request('lamination_id');
         $finishing_id = request('finishing_id');
@@ -178,29 +187,35 @@ class HomeController extends Controller
             'width' => 150,
             'height' => 500
         ];
+/*
         $this->validate(request(), [
             'width' => 'lte:150',
             'height' => 'lte:500'
-        ]);
+        ]); */
 
         $cal_width = $width * 0.035;
         $cal_height = $height * 0.035;
 
         $area = round($cal_width * $cal_height, 2);
+/*
+        $material = Productmaterial::where('material_id', $material_id->id)->where('product_id', $product_id)->first();
+        $shape = Productshape::where('shape_id', $shape_id->id)->where('product_id', $product_id)->first();
+        $lamination = Productlamination::where('lamination_id', $lamination_id->id)->where('product_id', $product_id)->first();
+        $finishing = Productfinishing::where('finishing_id', $finishing_id->id)->where('product_id', $product_id)->first();
+        $delivery = Productdelivery::where('delivery_id', $delivery_id->id)->where('product_id', $product_id)->first(); */
+        // dd(request()->all());
 
-        $material = Productmaterial::where('material_id', $material_id)->where('product_id', $product_id)->first();
-        $shape = Productshape::where('shape_id', $shape_id)->where('product_id', $product_id)->first();
-        $lamination = Productlamination::where('lamination_id', $lamination_id)->where('product_id', $product_id)->first();
-        $finishing = Productfinishing::where('finishing_id', $finishing_id)->where('product_id', $product_id)->first();
-        $orderquantity = Orderquantity::findOrFail($orderquantity_id);
-        $delivery = Productdelivery::where('delivery_id', $delivery_id)->where('product_id', $product_id)->first();
+        // $total = $shape->multiplier : 0 * ($material ? $material->multiplier : 0 + $lamination ? $lamination->multiplier : 0 + $finishing ? $finishing->multiplier : 0) * $area;
 
-        $total = $shape ? $shape->multiplier : 0 * ($material ? $material->multiplier : 0 + $lamination ? $lamination->multiplier : 0 + $finishing ? $finishing->multiplier : 0) * $area;
+        $total = $shape->multiplier * ($material->multiplier + $lamination->multiplier + $finishing->multiplier);
 
-        $total = $total * $orderquantity->qty;
+        // $total = $total * $orderquantity->qty;
+        $total = $total * $quantities;
 
         // dd($delivery);
         $total = $total + ($delivery ? $delivery->multiplier : 0);
+
+        // dd($total);
 
         return $total;
 

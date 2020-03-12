@@ -13,6 +13,7 @@ class FinishingSeeder extends Seeder
      */
     public function run()
     {
+/*
         $finishing = Finishing::create([
             'name' => 'None'
         ]);
@@ -22,7 +23,7 @@ class FinishingSeeder extends Seeder
             'product_id' => 2,
             'finishing_id' => $finishing->id,
             'multiplier' => 0
-        ]);
+        ]); */
 
 
         $finishing = Finishing::create([

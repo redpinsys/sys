@@ -23,7 +23,6 @@ class FrameController extends Controller
         $frames = DB::table('productframes')
             ->leftJoin('products', 'products.id', '=', 'productframes.product_id')
             ->leftJoin('frames', 'frames.id', '=', 'productframes.frame_id')
-            ->orderBy('frames.name')
             ->where('products.id', $product_id)
             ->select(
                 'frames.id', 'frames.name', 'productframes.multiplier'

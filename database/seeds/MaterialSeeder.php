@@ -104,7 +104,7 @@ class MaterialSeeder extends Seeder
         ]);
 
         $material = Material::create([
-            'name' => 'Lightboard Sticker'
+            'name' => 'Lightbox Sticker'
         ]);
         // inkjet sticker
         Productmaterial::create([

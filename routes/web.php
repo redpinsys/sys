@@ -1,44 +1,58 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/client/label-sticker', 'HomeController@getLabelstickerIndex');
-Route::get('/client/inkjet-sticker', 'HomeController@getInkjetstickerIndex');
-Route::post('/api/labelsticker/quotation', 'HomeController@getLabelstickerQuotationApi');
-Route::post('/api/inkjetsticker/quotation', 'HomeController@getInkjetstickerQuotationApi');
 
-Route::get('/api/materials/all', 'MaterialController@getAllMaterialsApi');
-Route::get('/api/materials/product/{product_id}', 'MaterialController@getAllMaterialsByProductIdApi');
+Route::get('/', 'HomeController@index')->name('home.index');
+Route::get('/price', 'PriceController@index')->name('price.index');
+Route::get('/order', 'OrderController@index')->name('order.index');
 
-Route::get('/api/orderquantities/all', 'OrderquantityController@getAllOrderquantitiesApi');
+Route::group(['prefix' => 'client'], function() {
+    Route::get('/label-sticker', 'HomeController@getLabelstickerIndex');
+    Route::get('/inkjet-sticker', 'HomeController@getInkjetstickerIndex');
+});
 
-Route::get('/api/shapes/all', 'ShapeController@getAllShapesApi');
-Route::get('/api/shapes/product/{product_id}', 'ShapeController@getAllShapesByProductIdApi');
 
-Route::get('/api/laminations/all', 'LaminationController@getAllLaminationsApi');
-Route::get('/api/laminations/product/{product_id}', 'LaminationController@getAllLaminationsByProductIdApi');
+Route::group(['prefix' => 'api'], function() {
+    Route::group(['prefix' => 'materials'], function() {
+        Route::get('/all', 'MaterialController@getAllMaterialsApi');
+        Route::get('/product/{id}', 'MaterialController@getAllMaterialsByProductIdApi');
+        Route::post('/{id}', 'MaterialController@updateProductMaterialByIdApi');
+    });
 
-Route::get('/api/finishings/all', 'FinishingController@getAllFinishingsApi');
-Route::get('/api/finishings/product/{product_id}', 'FinishingController@getAllFinishingsByProductIdApi');
+    Route::group(['prefix' => 'shapes'], function() {
+        Route::get('/all', 'ShapeController@getAllShapesApi');
+        Route::get('/product/{product_id}', 'ShapeController@getAllShapesByProductIdApi');
+        Route::post('/{id}', 'ShapeController@updateProductShapeByIdApi');
+    });
 
-Route::get('/api/frames/all', 'FrameController@getAllFramesApi');
-Route::get('/api/frames/product/{product_id}', 'FrameController@getAllFramesByProductIdApi');
+    Route::group(['prefix' => 'laminations'], function() {
+        Route::get('/all', 'LaminationController@getAllLaminationsApi');
+        Route::get('/product/{product_id}', 'LaminationController@getAllLaminationsByProductIdApi');
+    });
 
-Route::get('/api/deliveries/all', 'DeliveryController@getAllDeliveriesApi');
-Route::get('/api/deliveries/product/{product_id}', 'DeliveryController@getAllDeliveriesByProductIdApi');
+    Route::group(['prefix' => 'finishings'], function() {
+        Route::get('/all', 'FinishingController@getAllFinishingsApi');
+        Route::get('/product/{product_id}', 'FinishingController@getAllFinishingsByProductIdApi');
+    });
+
+    Route::group(['prefix' => 'frames'], function() {
+        Route::get('/all', 'FrameController@getAllFramesApi');
+        Route::get('/product/{product_id}', 'FrameController@getAllFramesByProductIdApi');
+    });
+
+    Route::group(['prefix' => 'deliveries'], function() {
+        Route::get('/all', 'DeliveryController@getAllDeliveriesApi');
+        Route::get('/product/{product_id}', 'DeliveryController@getAllDeliveriesByProductIdApi');
+        Route::post('/{id}', 'DeliveryController@updateProductDeliveryByIdApi');
+    });
+
+    Route::group(['prefix' => 'orderquantities'], function() {
+        Route::get('/all', 'OrderquantityController@getAllOrderquantitiesApi');
+        Route::post('/{id}', 'OrderquantityController@updateOrderquantityByIdApi');
+    });
+
+    Route::post('/labelsticker/quotation', 'HomeController@getLabelstickerQuotationApi');
+    Route::post('/inkjetsticker/quotation', 'HomeController@getInkjetstickerQuotationApi');
+
+});

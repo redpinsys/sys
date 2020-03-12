@@ -13,6 +13,7 @@ class LaminationSeeder extends Seeder
      */
     public function run()
     {
+/*
         $lamination = Lamination::create([
             'name' => 'None'
         ]);
@@ -22,7 +23,7 @@ class LaminationSeeder extends Seeder
             'product_id' => 2,
             'lamination_id' => $lamination->id,
             'multiplier' => 0
-        ]);
+        ]); */
 
 
 

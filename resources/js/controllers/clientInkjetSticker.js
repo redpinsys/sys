@@ -4,30 +4,39 @@ if(document.querySelector('#clientInkjetstickerController')) {
       data() {
         return {
           form: {
+            // material_id: this.returnNoneOption(),
             material_id: '',
             shape_id: '',
             width: '',
             height: '',
-            lamination_id: '',
-            finishing_id: '',
-            frame_id: '',
+            lamination_id: this.returnNoneMultiplierOption(),
+            finishing_id: this.returnNoneMultiplierOption(),
+            frame_id: this.returnNoneMultiplierOption(),
             orderquantity_id: '',
-            delivery_id: '',
+            delivery_id: this.returnSelfCollectOption(),
+            quantities: '',
             total: 0.00
           },
           formsetup: {
-            max_width: '',
-            max_height: ''
+            max_width: 150,
+            max_height: 500
           },
           materials: [],
           orderquantities: [],
           shapes: [],
-          laminations: [],
-          finishings: [],
-          frames: [],
+          laminations: [
+            this.returnNoneMultiplierOption()
+          ],
+          finishings: [
+            this.returnNoneMultiplierOption()
+          ],
+          frames: [
+            this.returnNoneMultiplierOption()
+          ],
           formErrors: {},
           is_finishing_enable: true,
-          deliveries: []
+          deliveries: [],
+          combine_sticker_str: ''
         }
       },
       mounted() {
@@ -67,22 +76,35 @@ if(document.querySelector('#clientInkjetstickerController')) {
         },
         getAllLaminations() {
           axios.get('/api/laminations/product/2').then((response) => {
-            this.laminations = response.data
+            let vm = this;
+            $.each(response.data, function(key, value) {
+              vm.laminations.push(value);
+            });
+            // this.laminations = response.data
           })
         },
         getAllFinishings() {
           axios.get('/api/finishings/product/2').then((response) => {
-            this.finishings = response.data
+            let vm = this;
+            $.each(response.data, function(key, value) {
+              vm.finishings.push(value);
+            });
+            // this.finishings = response.data
           })
         },
         getAllFrames() {
           axios.get('/api/frames/product/2').then((response) => {
-            this.frames = response.data
+            let vm = this;
+            $.each(response.data, function(key, value) {
+              vm.frames.push(value);
+            });
+            // this.frames = response.data
           })
         },
         getAllDeliveries() {
           axios.get('/api/deliveries/product/2').then((response) => {
             this.deliveries = response.data
+            // console.log(JSON.parse(JSON.stringify(this.deliveries)))
           })
         },
         shapeChosen() {
@@ -90,6 +112,32 @@ if(document.querySelector('#clientInkjetstickerController')) {
           if(this.form.shape_id == 3) {
             this.form.finishing_id = 1
             this.is_finishing_enable = false
+          }
+          this.getQuotation()
+        },
+        enterSize() {
+          if(this.form.width > this.form.height) {
+            if(this.form.width > this.formsetup.max_height) {
+              this.combine_sticker_str = 'Need to combine sticker'
+            }else {
+              this.combine_sticker_str = ''
+              if(this.form.height > this.formsetup.max_width) {
+                this.combine_sticker_str = 'Need to combine sticker'
+              }else {
+                this.combine_sticker_str = ''
+              }
+            }
+          }else {
+            if(this.form.height > this.formsetup.max_height) {
+              this.combine_sticker_str = 'Need to combine sticker'
+            }else {
+              this.combine_sticker_str = ''
+              if(this.form.width > this.formsetup.max_width) {
+                this.combine_sticker_str = 'Need to combine sticker'
+              }else {
+                this.combine_sticker_str = ''
+              }
+            }
           }
           this.getQuotation()
         },
@@ -101,7 +149,19 @@ if(document.querySelector('#clientInkjetstickerController')) {
           .catch((error) => {
             this.formErrors = error.response.data.errors
           });
-        }, 500)
+        }, 500),
+        customLabel(option) {
+          return `${option.name}`
+        },
+        returnNoneMultiplierOption() {
+          return {'id': '', 'name': 'None', 'multiplier': 0}
+        },
+        returnNoneOption() {
+          return {'id': '', 'name': 'None'}
+        },
+        returnSelfCollectOption() {
+          return {id: 1, name: "Self Collect", multiplier: 0}
+        }
       }
     });
 

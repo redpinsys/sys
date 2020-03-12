@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Delivery;
+use App\Productdelivery;
 use DB;
 
 class DeliveryController extends Controller
@@ -24,10 +24,20 @@ class DeliveryController extends Controller
             ->leftJoin('deliveries', 'deliveries.id', '=', 'productdeliveries.delivery_id')
             ->where('products.id', $product_id)
             ->select(
-                'deliveries.id', 'deliveries.name', 'productdeliveries.multiplier'
+                'productdeliveries.id', 'deliveries.name', 'productdeliveries.multiplier'
             )
             ->get();
 
         return $deliveries;
+    }
+
+    // update delivery by given id
+    public function updateProductDeliveryByIdApi($id)
+    {
+        $model = Productdelivery::findOrFail($id);
+        $multiplier = request('multiplier');
+
+        $model->multiplier = $multiplier;
+        $model->save();
     }
 }
