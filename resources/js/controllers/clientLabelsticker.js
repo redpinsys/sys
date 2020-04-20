@@ -32,6 +32,7 @@ if(document.querySelector('#clientLabelstickerController')) {
     },
     methods: {
       materialIdSelected() {
+        console.log(this.form.material_id)
         if(this.form.material_id == 5) {
           this.formsetup.max_width = 282
           this.formsetup.max_height = 434

@@ -122,19 +122,24 @@ class HomeController extends Controller
         }
 
         $orderquantity = Orderquantity::findOrFail($orderquantity_id);
+/*
         $material = Productmaterial::where('material_id', $material_id)->where('product_id', $product_id)->first();
         $shape = Productshape::where('shape_id', $shape_id)->where('product_id', $product_id)->first();
-        $delivery = Productdelivery::where('delivery_id', $delivery_id)->where('product_id', $product_id)->first();
+        $delivery = Productdelivery::where('delivery_id', $delivery_id)->where('product_id', $product_id)->first(); */
+        $material = Productmaterial::find($material_id);
+        $shape = Productshape::find($shape_id);
+        $delivery = Productdelivery::find($delivery_id);
         // dd($floor_width, $floor_height, $area);
 
         $formula = intval(round($orderquantity->qty/ $area) + 3);
 
-        $quantitymultipler = Quantitymultiplier::where('min', '<=', $formula)
+        $quantitymultiplier = Quantitymultiplier::where('min', '<=', $formula)
             ->where('max', '>=', $formula)
             ->where('product_id', $product_id)
             ->first();
+            // dd($shape->toArray(), $shape->multiplier);
 
-        $total = ($formula * $quantitymultipler->multiplier * $material->multiplier * $shape->multiplier) + $delivery->multiplier + 15;
+        $total = ($formula * $quantitymultiplier->multiplier * $material->multiplier * $shape->multiplier) + $delivery->multiplier + 15;
         // dd($formula, $quantitymultipler->multiplier, $material->multiplier, $shape->multiplier, $total);
 
         return $total;
