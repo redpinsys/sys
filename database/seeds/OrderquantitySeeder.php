@@ -64,7 +64,7 @@ class OrderquantitySeeder extends Seeder
         for($i=1; $i<=20; $i++) {
             $total = $starter + $multiplier * $i;
 
-            if($total == 1050 and $total == 150) {
+            if($total == 1050 or $total == 150) {
                 continue;
             }
 
