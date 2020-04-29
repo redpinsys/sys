@@ -63,6 +63,11 @@ class OrderquantitySeeder extends Seeder
         $multiplier = 50;
         for($i=1; $i<=20; $i++) {
             $total = $starter + $multiplier * $i;
+
+            if($total == 1050 and $total == 150) {
+                continue;
+            }
+
             Orderquantity::create([
                 'name' => $total . ' pcs',
                 'qty' => $total
@@ -73,6 +78,10 @@ class OrderquantitySeeder extends Seeder
         $multiplier = 500;
         for ($i = 1; $i <= 20; $i++) {
             $total = $starter + $multiplier * $i;
+
+            if($total == 10500) {
+                continue;
+            }
             Orderquantity::create([
                 'name' => $total . ' pcs',
                 'qty' => $total
@@ -83,6 +92,10 @@ class OrderquantitySeeder extends Seeder
         $multiplier = 5000;
         for ($i = 1; $i <= 20; $i++) {
             $total = $starter + $multiplier * $i;
+
+            if($total == 105000) {
+                continue;
+            }
             Orderquantity::create([
                 'name' => $total . ' pcs',
                 'qty' => $total
