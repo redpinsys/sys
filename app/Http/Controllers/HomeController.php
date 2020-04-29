@@ -94,11 +94,11 @@ class HomeController extends Controller
             'height' => 'lte:455'
         ]);
 
-        $floor_width1 = floor(($dimension['width'] + 3) / $width);
-        $floor_height1 = floor(($dimension['height'] + 3)/ $height);
+        $floor_width1 = floor($dimension['width'] / ($width + 3));
+        $floor_height1 = floor($dimension['height']/ ($height + 3));
 
-        $floor_width2 = floor(($dimension['width'] + 3)/ $height);
-        $floor_height2 = floor(($dimension['height'] + 3)/ $width);
+        $floor_width2 = floor($dimension['width']/ ($height + 3));
+        $floor_height2 = floor($dimension['height']/ ($width + 3));
 
         $area1 = $floor_width1 * $floor_height1;
         $area2 = $floor_width2 * $floor_height2;
