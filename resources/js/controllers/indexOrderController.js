@@ -32,13 +32,9 @@ if(document.querySelector('#indexOrderController')) {
     },
     methods: {
       materialIdSelected() {
-        if(this.form.material_id == 5) {
-          this.formsetup.max_width = 282
-          this.formsetup.max_height = 434
-        }else {
-          this.formsetup.max_width = 307
-          this.formsetup.max_height = 460
-        }
+
+        this.formsetup.max_width = 305
+        this.formsetup.max_height = 455
         this.getQuotation()
       },
       getAllMaterials() {
