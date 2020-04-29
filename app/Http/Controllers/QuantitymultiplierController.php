@@ -23,7 +23,7 @@ class QuantitymultiplierController extends Controller
             ->select(
                 'quantitymultipliers.id', 'quantitymultipliers.min', 'quantitymultipliers.max', 'quantitymultipliers.multiplier'
             )
-            ->orderBy('min', 'max')
+            ->orderBy('quantitymultipliers.min')
             ->get();
 
         return $model;
