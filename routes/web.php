@@ -55,6 +55,11 @@ Route::group(['prefix' => 'api'], function() {
         Route::post('/{id}', 'OrderquantityController@updateOrderquantityByIdApi');
     });
 
+    Route::group(['prefix' => 'quantitymultipliers'], function() {
+        Route::get('/product/{id}', 'QuantitymultiplierController@getAllQuantitymultipliersByProductIdApi');
+        Route::post('/{id}', 'QuantitymultiplierController@updateQuantitymultiplierByIdApi');
+    });
+
     Route::post('/labelsticker/quotation', 'HomeController@getLabelstickerQuotationApi');
     Route::post('/inkjetsticker/quotation', 'HomeController@getInkjetstickerQuotationApi');
 

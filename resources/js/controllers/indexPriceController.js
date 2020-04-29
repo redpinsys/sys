@@ -6,12 +6,14 @@ if(document.querySelector('#indexPriceController')) {
             materials: [],
             orderquantities: [],
             shapes: [],
-            deliveries: []
+            deliveries: [],
+            quantitymultipliers: []
         }
     },
       mounted() {
         this.getAllMaterials()
         this.getAllOrderquantities()
+        this.getQuantitymultipliers()
         this.getAllShapes()
         this.getAllDeliveries()
       },
@@ -36,6 +38,11 @@ if(document.querySelector('#indexPriceController')) {
             this.deliveries = response.data
           })
         },
+        getQuantitymultipliers() {
+          axios.get('/api/quantitymultipliers/product/1').then((response) => {
+            this.quantitymultipliers = response.data
+          })
+        },
         onProductShapeMultiplierChanged(id, value) {
             axios.post('/api/shapes/' + id, {multiplier: value}).then((response) => {
             })
@@ -55,6 +62,10 @@ if(document.querySelector('#indexPriceController')) {
         onQtyChanged(id, qty) {
             axios.post('/api/orderquantities/' + id, {qty: qty}).then((response) => {
             })
+        },
+        onQtyMultiplierChanged(data) {
+          axios.post('/api/quantitymultipliers/' + data.id, data).then((response) => {
+          })
         }
       }
     });
@@ -144,8 +155,7 @@ if(document.querySelector('#indexPriceController')) {
             onDeliveryMultiplierChanged(id, value) {
                 axios.post('/api/deliveries/' + id, {multiplier: value}).then((response) => {
                 })
-            },
-
+            }
         }
       });
 

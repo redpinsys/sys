@@ -139,7 +139,7 @@ class HomeController extends Controller
             ->first();
             // dd($shape->toArray(), $shape->multiplier);
 
-        $total = ($formula * $quantitymultiplier->multiplier * $material->multiplier * $shape->multiplier) + $delivery->multiplier + 15;
+        $total = ($formula * $quantitymultiplier->multiplier * $material->multiplier * $shape->multiplier) + $delivery->multiplier;
         // dd($formula, $quantitymultipler->multiplier, $material->multiplier, $shape->multiplier, $total);
 
         return $total;
